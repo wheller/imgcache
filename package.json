@@ -16,9 +16,17 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "nodeunit": "*",
+    "coffee-script": ">= 1.10",
     "docco": "*",
-    "coffee-script": ">= 1.10"
+    "grunt": "^0.4.5",
+    "grunt-contrib-coffee": "^0.13.0",
+    "grunt-contrib-jshint": "^0.12.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "nodeunit": "*"
   },
-  "keywords": ["image", "cache", "download"]
+  "keywords": [
+    "image",
+    "cache",
+    "download"
+  ]
 }
