@@ -18,32 +18,30 @@ imgcache = (opt) ->
 
   # public API
   {
+    info:
+      'path': cachedir
+      'dirname': ''
+      'loadedfromcache': false
     get: (url, callback) ->
-      dirname = undefined
-      self = undefined
-      info = 
-        'path': cachedir
-        'dirname': ''
-      info.path += '/' + url.replace(/^(ht|f)tps?:\/\//i, '').replace(/[^a-z0-9_\.\/-]/gi, '_')
-      info.dirname = path.dirname(info.path)
       self = this
-      fs.readFile info.path, (err, file) ->
+      @info.path += '/' + url.replace(/^(ht|f)tps?:\/\//i, '').replace(/[^a-z0-9_\.\/-]/gi, '_')
+      @info.dirname = path.dirname(@info.path)
+      fs.readFile @info.path, (err, file, info) ->
         if !err
-          @info.loadedFromCache = true
-          callback err, file
+          self.info.loadedfromcache = true
+          callback err, file, self.info
         else
-          @info.loadedFromCache = false
-          if @options.debug
-            console.log 'Downloading file: ' + info.path
-          mkdirp info.dirname, (error) ->
+          if debug
+            console.log 'Downloading file: ' + self.info.path
+          mkdirp self.info.dirname, (error) ->
             if error
-              @info.error = error
-              if @options.debug
+              self.info.error = error
+              if debug
                 console.log 'Directory Creation Error: ' + error
               return callback(error)
-            request(url).pipe(fs.createWriteStream(info.path)).on 'close', ->
+            request(url).pipe(fs.createWriteStream(self.info.path)).on 'close', ->
               fs.readFile info.path, (err, file) ->
-                callback error, file, info
+                callback error, file, self.info
     isimage: (url, callback) ->
       callback null, url.match(/\.(gif|jpe?g|png)$/)
 

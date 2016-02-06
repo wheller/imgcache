@@ -1,7 +1,7 @@
 ImgCache
 ========
 
-Simple Web Image Resolving and Caching Utility
+Simple Web Image Resolving and Caching Utility NPM Module
 
 *Still in experimental state, please check back soon*
 
