@@ -8,7 +8,7 @@
   "eqnull"        : false,
   "evil"          : false,
   "expr"          : false,
-  "forin"         : false,
+  "forin"         : true,
   "immed"         : true,
   "indent"        : 2,
   "latedef"       : true,
@@ -17,11 +17,12 @@
   "node"          : true,
   "regexp"        : true,
   "regexdash"     : false,
-  "strict"        : false,
+  "strict"        : true,
   "scripturl"     : true,
   "shadow"        : false,
   "supernew"      : false,
   "sub"           : true,
   "undef"         : true,
+  "unused"        : true,
   "white"         : true
 }

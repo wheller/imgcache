@@ -23,11 +23,11 @@
     "pre-commit": "^1.1.2"
   },
   "scripts": {
-    "test": "nodeunit test/*.coffee"
-    "jshint": "jshint -c .jshintrc lib" 
+    "test": "nodeunit test/*.coffee",
+    "jshint": "jshint -c .jshintrc lib/**/*.js" 
   },
   "pre-commit": [
-    "jshint lib/**/*.js"
+    "jshint"
   ],
   "repository": {
     "type": "git",

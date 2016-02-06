@@ -10,7 +10,7 @@ module.exports = (grunt) ->
       options:
         reporter: 'default'
     jshint:
-      files: ['lib/**/*js']
+      files: ['lib/**/*.js']
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-nodeunit'
   grunt.loadNpmTasks 'grunt-contrib-jshint'

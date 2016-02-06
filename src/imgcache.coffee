@@ -1,9 +1,13 @@
+
+'use strict'
+
 imgcache = (opt) ->
 
   # private data
   fs = require('fs')
   mkdirp = require('mkdirp')
-  path = require('path')
+  path = require('path')  
+  request = require('request')
   
   # private functions
   parse = ->
@@ -41,6 +45,7 @@ imgcache = (opt) ->
               fs.readFile info.path, (err, file) ->
                 callback error, file, info
     isimage: (url, callback) ->
+      callback null, url.match(/\.(gif|jpe?g|png)$/)
 
   }
 
