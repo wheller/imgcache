@@ -1,5 +1,7 @@
 
 cachedir = __dirname + '/testcache'
+testimage = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg'
+notimage = 'http://www.phirephly.com/'
 
 imgcache = require('../lib/imgcache.js')({ "cachedir": cachedir })
 testCase  = require('nodeunit').testCase
@@ -20,8 +22,17 @@ exports.imgcacheExists = (test) ->
   test.equal typeof imgcache.isimage, 'function'
   test.done()
 
+exports.imgcacheIsImage = (test) ->
+  imgcache.isimage testimage, (err, isimage) ->
+    test.ok(! err,"No error")
+    test.ok(isimage, "Test if image is correctly identified")
+    imgcache.isimage notimage, (err, isimage) ->
+      test.ok(! err,"No error")
+      test.ok(!isimage, "Test if non image URL resolves to false")
+      test.done()
+
 exports.imgcacheDownloads = (test) ->
-  imgcache.get 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg', (err,image,info) ->
+  imgcache.get testimage, (err,image,info) ->
     test.ok(! err,"No error")
     test.ok(image,"Image Returned")
     stats = fs.lstatSync(cachedir);
