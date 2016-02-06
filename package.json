@@ -24,7 +24,7 @@
   },
   "scripts": {
     "test": "nodeunit test/*.coffee",
-    "jshint": "jshint -c .jshintrc lib/**/*.js" 
+    "jshint": "jshint -c .jshintrc lib" 
   },
   "pre-commit": [
     "jshint"
