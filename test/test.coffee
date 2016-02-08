@@ -3,13 +3,10 @@ cachedir = __dirname + '/testcache'
 testimage = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg'
 notimage = 'http://www.phirephly.com/'
 
-imgcache = require('../lib/imgcache.js')({ "cachedir": cachedir })
+imgcache = require('../lib/imgcache.js')({ "cachedir": cachedir, "debug":true })
 testCase  = require('nodeunit').testCase
 assert = require('assert')
 fs = require('fs')
-
-#for k,v of imgcache
-#  console.log k + " is " + v
 
 exports.testsRunning = (test) ->
   test.equal 2 * 2, 4
@@ -29,15 +26,22 @@ exports.imgcacheIsImage = (test) ->
     imgcache.isimage notimage, (err, isimage) ->
       test.ok(! err,"No error")
       test.ok(!isimage, "Test if non image URL resolves to false")
-      test.done()
+  test.done()
 
 exports.imgcacheDownloads = (test) ->
   imgcache.get testimage, (err,image,info) ->
     test.ok(! err,"No error")
+    test.ok(info,"info returned")
+    test.ok(!info.loadedfromcache,"Not loaded from cache")
     test.ok(image,"Image Returned")
-    stats = fs.lstatSync(cachedir);
+    stats = fs.statSync(cachedir)
     test.ok(stats.isDirectory(),"Intended Cache Directory Exists")
+    for k,v of info
+      console.log k + " is " + v
     test.ok(info.path,"Check for full path to file")
-    stats = fs.lstatSync(info.path)
+    stats = fs.statSync(info.path)
     test.ok(stats.isFile(),"File exists")
+    imgcache.clear testimage, (err) ->
+      test.ok(! err, "No error clearing file cache")
+#      test.throws(fs.accessSync testimage, fs.F_OK, Error, "file should be gone")
     test.done()

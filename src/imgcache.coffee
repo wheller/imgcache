@@ -10,7 +10,9 @@ imgcache = (opt) ->
   request = require('request')
   
   # private functions
-  parse = ->
+  getrelativepath = (url) ->
+    url.replace(/^(ht|f)tps?:\/\//i, '').replace /[^a-z0-9_\.\/-]/gi, '_'
+
 
   opt = opt or {}
   cachedir = opt.cachedir or __dirname + '/imgcache'
@@ -22,11 +24,31 @@ imgcache = (opt) ->
       'path': cachedir
       'dirname': ''
       'loadedfromcache': false
+    clear: (url, callback) ->
+      relativepath = getrelativepath url
+      try
+        fs.unlinkSync cachedir + '/' + relativepath
+      catch err
+        return callback(err)
+      limit = 30
+      relativedirname = '/' + relativepath
+      sep = (if path.sep == '/' then '\\' else '') + path.sep
+      rx = new RegExp(sep + '[^' + sep + ']+' + sep + '?$')
+      while (relativedirname = relativedirname.replace(rx,'')).length > 0 && (--limit > 0)
+        console.log("relativedirname = " + relativedirname);
+        try
+          fs.rmdirSync cachedir + relativedirname
+        catch err
+          #this is ok, there might be other files in the directory
+          if debug
+            console.log 'Directory Not Empty, only clearing up to ' + relativedirname
+          return callback(false)
+      callback null
     get: (url, callback) ->
       self = this
-      @info.path += '/' + url.replace(/^(ht|f)tps?:\/\//i, '').replace(/[^a-z0-9_\.\/-]/gi, '_')
+      @info.path += '/' + getrelativepath url
       @info.dirname = path.dirname(@info.path)
-      fs.readFile @info.path, (err, file, info) ->
+      fs.readFile @info.path, (err, file) ->
         if !err
           self.info.loadedfromcache = true
           callback err, file, self.info
@@ -40,7 +62,7 @@ imgcache = (opt) ->
                 console.log 'Directory Creation Error: ' + error
               return callback(error)
             request(url).pipe(fs.createWriteStream(self.info.path)).on 'close', ->
-              fs.readFile info.path, (err, file) ->
+              fs.readFile self.info.path, (err, file) ->
                 callback error, file, self.info
     isimage: (url, callback) ->
       callback null, url.match(/\.(gif|jpe?g|png)$/)

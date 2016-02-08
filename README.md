@@ -20,7 +20,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
   });
 ```
 
-## Tests
+## Testing
 
   `$ npm test`
 
