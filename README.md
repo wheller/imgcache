@@ -22,9 +22,14 @@ Simple Web Image Resolving and Caching Utility NPM Module
   
 ```
   imgcache = require("imgcache.js")({ "cachedir": "/home/user/mycachedir" });
-  imgcache.get("http://www.phirephly.com/someimage.jpeg", function(err,file,info){
 
+  // Get image by url, from cache if available, otherwise downloaded from the supplied URL and then added to cache.
+  imgcache.get("http://www.phirephly.com/someimage.jpeg", function(err,file,info){
+    ... your code here ...
   });
+
+  // Check to see if the supplied URL is an image, returns boolean
+  var isimage = imgcache.isimage("http://www.phirephly.com/someimage.jpeg")
 ```
 
 
@@ -57,5 +62,11 @@ Simple Web Image Resolving and Caching Utility NPM Module
 
   `$ grunt`
 
+
+## ToDo
+
+  # add iscached()
+  # add real check to isimage
+  # add options to listen to (or ignore) cache headers
 
 

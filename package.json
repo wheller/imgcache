@@ -29,6 +29,7 @@
     "jshint": "jshint -c .jshintrc lib"
   },
   "pre-commit": [
+    "test",
     "jshint"
   ],
   "repository": {
