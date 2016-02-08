@@ -46,7 +46,7 @@ imgcache = (opt) ->
       callback null
     get: (url, callback) ->
       self = this
-      @info.path += '/' + getrelativepath url
+      @info.path = cachedir + '/' + getrelativepath url
       @info.dirname = path.dirname(@info.path)
       fs.readFile @info.path, (err, file) ->
         if !err

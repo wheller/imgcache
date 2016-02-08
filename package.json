@@ -19,12 +19,14 @@
     "grunt-contrib-coffee": "^0.13.0",
     "grunt-contrib-jshint": "^0.12.0",
     "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-exec": "^0.4.6",
     "nodeunit": "*",
-    "pre-commit": "^1.1.2"
+    "pre-commit": "^1.1.2",
+    "should": "^8.2.1"
   },
   "scripts": {
     "test": "nodeunit test/*.coffee",
-    "jshint": "jshint -c .jshintrc lib" 
+    "jshint": "jshint -c .jshintrc lib"
   },
   "pre-commit": [
     "jshint"
