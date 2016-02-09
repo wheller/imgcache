@@ -28,7 +28,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
 >
 >  *Optionally install global tools (might need sudo depending upon your environment)*
 >  ```
->   $ npm install -g grunt-cli coffee-script`
+>   $ npm install -g grunt-cli coffee-script
 >  ```
 >
 >  *Install all dependencies*
