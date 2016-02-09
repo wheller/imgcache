@@ -68,10 +68,10 @@ Simple Web Image Resolving and Caching Utility NPM Module
 >
 >  `$ grunt debug`
 >
->  which is basically...
+>  which is basically...<br />
 >  `$ node-debug --debug-brk $(which grunt) nodeunit`
 >
->  then load in chrome..
+>  then load in chrome..<br />
 >  http://127.0.0.1:8080/?ws=127.0.0.1:8080&port=5858
 >
 
