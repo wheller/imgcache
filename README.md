@@ -20,7 +20,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
 >  `$ npm install imgcache --save`
 >
 > ### For module testing and development
-> Assumes you already have Node.js and npm installed.
+> Assumes you already have Node.js and npm installed.<br />
 >  *clone the repo:*
 >  ```
 >   $ git clone https://github.com/wheller/imgcache
