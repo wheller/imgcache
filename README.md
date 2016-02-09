@@ -65,8 +65,9 @@ Simple Web Image Resolving and Caching Utility NPM Module
 
 ## ToDo
 
-  # add iscached()
-  # add real check to isimage
-  # add options to listen to (or ignore) cache headers
+  * check for evil urls... http://../../etc..
+  * add iscached()
+  * add real check to isimage
+  * add options to listen to (or ignore) cache headers
 
 
