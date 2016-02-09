@@ -19,17 +19,21 @@ Simple Web Image Resolving and Caching Utility NPM Module
   `$ npm install imgcache --save`
 
 ### For module testing and development
-  *clone the repo:*<br />
-  `$ git clone https://github.com/wheller/imgcache`
-
-  *Optionally install global tools (might need sudo depending upon your environment)*<br />
-  `$ npm install -g grunt-cli coffee-script`
-
-  *Install all dependencies*<br />
-  ```
-   $ cd imgcache
-   $ npm install
-  ```
+>  *clone the repo:*
+>  ```
+>   $ git clone https://github.com/wheller/imgcache`
+>  ```
+>
+>  *Optionally install global tools (might need sudo depending upon your environment)*
+>  ```
+>   $ npm install -g grunt-cli coffee-script`
+>  ```
+>
+>  *Install all dependencies*
+>  ```
+>   $ cd imgcache
+>   $ npm install
+>  ```
 
 ## Usage
   
