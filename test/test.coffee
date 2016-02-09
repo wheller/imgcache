@@ -32,7 +32,7 @@ exports.imgcacheIsImage = (test) ->
   test.done()
 
 exports.imgcacheDownloads = (test) ->
-  test.expect 11
+  test.expect 13
   imgcache.get testimage, (err,image,info) ->
     test.ok !err, "No error"
     test.ok info, "info returned"
@@ -43,6 +43,7 @@ exports.imgcacheDownloads = (test) ->
     test.ok info.path,"Check for full path to file"
     stats = fs.statSync(info.path)
     test.ok stats.isFile(), "File exists"
+    test.ok imgcache.iscached(testimage), "Is Cached?"
     imgcache.get testimage, (err, image, info) ->
       test.ok !err, "No error"
       test.ok info.loadedfromcache, "Loaded from cache"
@@ -52,4 +53,5 @@ exports.imgcacheDownloads = (test) ->
           fs.accessSync testimage, fs.F_OK
           return
         ), Error, 'Image should no longer exist'
+        test.ok !imgcache.iscached(testimage), "Is Not Cached?"
       test.done()

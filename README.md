@@ -6,7 +6,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
 *Still in experimental state, please check back soon*
 
 
-## Location
+## Locations
 >
 >  npm: https://www.npmjs.com/package/imgcache
 >
@@ -36,6 +36,17 @@ Simple Web Image Resolving and Caching Utility NPM Module
 >   $ cd imgcache
 >   $ npm install
 >  ```
+>
+
+## About
+>
+>  This library was written originally to supply images for a secure chat client that interfaces with Hubot.
+>  The project itself was designed to be a framework for building good npm modules including testing and
+>  debugging.  The library is written in CoffeeScript and published in JS for compatibility.  CoffeeScript
+>  was selected not because of any particular preference.  Rather as Hubot itself is written in it, we needed
+>  a good proof of concept for debugging and interacting with CoffeeScript for pure JS developers that may
+>  come later.  At least on our team, good JavaScript developers are much easier to find than good JavaScript
+>  developers who already know CoffeeScript.
 >
 
 
@@ -84,6 +95,10 @@ Simple Web Image Resolving and Caching Utility NPM Module
 
 ## Building
 >
+>  Transpile CoffeeScript (./src/) to final JavaScript (./lib/)<br />
+>  `$ grunt build`
+>
+>  Or full build with tests and linting<br /> 
 >  `$ grunt`
 >
 
@@ -91,7 +106,6 @@ Simple Web Image Resolving and Caching Utility NPM Module
 ## ToDo
 >
 >  * check for evil urls... http://../../etc..
->  * add iscached()
 >  * add real check to isimage
 >  * add options to listen to (or ignore) cache headers
 >

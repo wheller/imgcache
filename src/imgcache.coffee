@@ -24,6 +24,7 @@ imgcache = (opt) ->
       'path': cachedir
       'dirname': ''
       'loadedfromcache': false
+
     clear: (url, callback) ->
       relativepath = getrelativepath url
       try
@@ -44,6 +45,7 @@ imgcache = (opt) ->
             console.log 'Directory Not Empty, only clearing up to ' + relativedirname
           return callback(false)
       callback null
+
     get: (url, callback) ->
       self = this
       @info.path = cachedir + '/' + getrelativepath url
@@ -64,6 +66,18 @@ imgcache = (opt) ->
             request(url).pipe(fs.createWriteStream(self.info.path)).on 'close', ->
               fs.readFile self.info.path, (err, file) ->
                 callback error, file, self.info
+
+    iscached: (url) ->
+      imagepath = cachedir + '/' + getrelativepath(url)
+      try
+        stats = fs.statSync(imagepath)
+        return stats.isFile()
+      catch err
+        if debug
+          console.log 'iscached? Apparenlty not ' + err
+        return false
+      false
+
     isimage: (url, callback) ->
       callback null, url.match(/\.(gif|jpe?g|png)$/)
 
