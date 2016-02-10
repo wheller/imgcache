@@ -11,10 +11,10 @@ Simple Web Image Resolving and Caching Utility NPM Module
 >  This library was written originally to supply images for a secure chat client that interfaces with Hubot.
 >  The project itself was designed to be a framework for building good npm modules including testing and
 >  debugging.  The library is written in CoffeeScript and published in JS for compatibility.  CoffeeScript
->  was selected not because of any particular preference.  Rather as Hubot itself is written in it, we needed
->  a good proof of concept for debugging and interacting with CoffeeScript for pure JS developers that may
->  come later.  At least on our team, good JavaScript developers are much easier to find than good JavaScript
->  developers who already know CoffeeScript.
+>  was selected not because of any particular preference, rather as Hubot itself is written in CS, we needed
+>  a good proof of concept for debugging and interacting with CoffeeScript for pure JS developers who may
+>  contribute to our more complex code.  At least on our team, good JavaScript developers are much easier 
+>  to find than good JavaScript developers who already know CoffeeScript.
 >
 
 
@@ -61,7 +61,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
     ... your code here ...
   });
 
-  // Check to see if the supplied URL is an image, returns boolean
+  // Check to see if the supplied URL is an image
   imgcache.isimage("http://www.phirephly.com/someimage.jpeg" function(err, urlisimage){
     ... boolen urlisimage based upon http headers, follows redirects ...
   });
