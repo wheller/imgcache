@@ -11,7 +11,10 @@ imgcache = (opt) ->
   
   # private functions
   getrelativepath = (url) ->
-    url.replace(/^(ht|f)tps?:\/\//i, '').replace /[^a-z0-9_\.\/-]/gi, '_'
+    url = url.replace /^(ht|f)tps?:\/\//i, ''   # remove protocol
+    url = url.replace /[^/]+\/\.\.\//g, ''      # parent directories, resolved, evil stuff caught below
+    url = url.replace /[^a-z0-9_\.\/-]/gi, '_'  # everything not alphanumeric dot underscore dash
+    url.replace /\/./g, '/_'                    # dot files and evil urls foiled /.blah  -> /_blah
 
 
   opt = opt or {}
@@ -79,8 +82,18 @@ imgcache = (opt) ->
       false
 
     isimage: (url, callback) ->
-      callback null, url.match(/\.(gif|jpe?g|png)$/)
-
+      request.head url, (err, response) ->
+        if err
+          callback err, false
+          return false
+        else if !response or !response.headers or !response.headers['content-type']
+          callback "Error: unexpected response"
+          return false
+        else
+          rx = new RegExp "image", "i"
+          isimage = rx.test response.headers['content-type']
+          callback null, isimage
+          return isimage
   }
 
 module.exports = imgcache

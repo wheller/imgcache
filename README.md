@@ -6,6 +6,18 @@ Simple Web Image Resolving and Caching Utility NPM Module
 *Still in experimental state, please check back soon*
 
 
+## About
+>
+>  This library was written originally to supply images for a secure chat client that interfaces with Hubot.
+>  The project itself was designed to be a framework for building good npm modules including testing and
+>  debugging.  The library is written in CoffeeScript and published in JS for compatibility.  CoffeeScript
+>  was selected not because of any particular preference.  Rather as Hubot itself is written in it, we needed
+>  a good proof of concept for debugging and interacting with CoffeeScript for pure JS developers that may
+>  come later.  At least on our team, good JavaScript developers are much easier to find than good JavaScript
+>  developers who already know CoffeeScript.
+>
+
+
 ## Locations
 >
 >  npm: https://www.npmjs.com/package/imgcache
@@ -38,17 +50,6 @@ Simple Web Image Resolving and Caching Utility NPM Module
 >  ```
 >
 
-## About
->
->  This library was written originally to supply images for a secure chat client that interfaces with Hubot.
->  The project itself was designed to be a framework for building good npm modules including testing and
->  debugging.  The library is written in CoffeeScript and published in JS for compatibility.  CoffeeScript
->  was selected not because of any particular preference.  Rather as Hubot itself is written in it, we needed
->  a good proof of concept for debugging and interacting with CoffeeScript for pure JS developers that may
->  come later.  At least on our team, good JavaScript developers are much easier to find than good JavaScript
->  developers who already know CoffeeScript.
->
-
 
 ## Usage
   
@@ -61,7 +62,9 @@ Simple Web Image Resolving and Caching Utility NPM Module
   });
 
   // Check to see if the supplied URL is an image, returns boolean
-  var isimage = imgcache.isimage("http://www.phirephly.com/someimage.jpeg")
+  imgcache.isimage("http://www.phirephly.com/someimage.jpeg" function(err, urlisimage){
+    ... boolen urlisimage based upon http headers, follows redirects ...
+  });
 ```
 
 
@@ -77,9 +80,10 @@ Simple Web Image Resolving and Caching Utility NPM Module
 
 ## Debugging
 >
+>  Build and Debug<br />
 >  `$ grunt debug`
 >
->  which is basically...<br />
+>  Which equates to grunt build then...<br />
 >  `$ node-debug --debug-brk $(which grunt) nodeunit`
 >
 >  then load in chrome..<br />
@@ -106,7 +110,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
 ## ToDo
 >
 >  * check for evil urls... http://../../etc..
->  * add real check to isimage
 >  * add options to listen to (or ignore) cache headers
->
+>  * add callback to iscached
+>  * add way to specify mimetypes we care about (currently: /image/i )
 

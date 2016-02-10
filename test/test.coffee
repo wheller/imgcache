@@ -1,6 +1,8 @@
 
 cachedir = __dirname + '/testcache'
 testimage = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Large_format_camera_lens.jpg'
+testimageparentdir = 'https://upload.wikimedia.org/wikipedia/commons/b/../a/ac/Large_format_camera_lens.jpg'
+redirectimage = 'http://blh.me/c'
 notimage = 'http://www.phirephly.com/'
 
 imgcache = require('../lib/imgcache.js')({ "cachedir": cachedir, "debug":true })
@@ -22,17 +24,20 @@ exports.imgcacheExists = (test) ->
   test.done()
 
 exports.imgcacheIsImage = (test) ->
-  test.expect 4
+  test.expect 6
   imgcache.isimage testimage, (err, isimage) ->
-    test.ok !err, "No error"
+    test.ok !err, "No error on normal image URL"
     test.ok isimage, "Test if image is correctly identified"
     imgcache.isimage notimage, (err, isimage) ->
-      test.ok !err, "No error"
+      test.ok !err, "No error on URL that is not an image"
       test.ok !isimage, "Test if non image URL resolves to false"
-  test.done()
+      imgcache.isimage redirectimage, (err, isimage) ->
+        test.ok !err, "No error on redirect to image"
+        test.ok isimage, "Test if redirection is identified as image"
+        test.done()
 
 exports.imgcacheDownloads = (test) ->
-  test.expect 13
+  test.expect 15
   imgcache.get testimage, (err,image,info) ->
     test.ok !err, "No error"
     test.ok info, "info returned"
@@ -47,11 +52,14 @@ exports.imgcacheDownloads = (test) ->
     imgcache.get testimage, (err, image, info) ->
       test.ok !err, "No error"
       test.ok info.loadedfromcache, "Loaded from cache"
-      imgcache.clear testimage, (err) ->
-        test.ok(! err, "No error clearing file cache")
-        test.throws (->
-          fs.accessSync testimage, fs.F_OK
-          return
-        ), Error, 'Image should no longer exist'
-        test.ok !imgcache.iscached(testimage), "Is Not Cached?"
-      test.done()
+      imgcache.get testimageparentdir, (err, image, infoparent) ->
+        test.ok !err, "No error resolving URL with parent ref"
+        test.equal info.path, infoparent.path, "Does URL with ../ in it resolve to the same file?"
+        imgcache.clear testimage, (err) ->
+          test.ok(! err, "No error clearing file cache")
+          test.throws (->
+            fs.accessSync testimage, fs.F_OK
+            return
+          ), Error, 'Image should no longer exist'
+          test.ok !imgcache.iscached(testimage), "Is Not Cached?"
+          test.done()

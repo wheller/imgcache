@@ -1,6 +1,6 @@
 {
   "name": "imgcache",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "Simple Image Resolving and Caching Tool",
   "main": "lib/imgcache.js",
   "directories": {
