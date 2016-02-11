@@ -11,6 +11,9 @@ assert = require('assert')
 should = require('should')
 fs = require('fs')
 
+#require 'coffee-script/register'
+#require 'coffee-coverage/register-istanbul'
+
 exports.testsRunning = (test) ->
   test.expect 1
   test.equal 2 * 2, 4
