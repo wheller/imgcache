@@ -14,7 +14,7 @@ imgcache = (opt) ->
     url = url.replace /^(ht|f)tps?:\/\//i, ''   # remove protocol
     url = url.replace /[^/]+\/\.\.\//g, ''      # parent directories, resolved, evil stuff caught below
     url = url.replace /[^a-z0-9_\.\/-]/gi, '_'  # everything not alphanumeric dot underscore dash
-    url.replace /\/./g, '/_'                    # dot files and evil urls foiled /.blah  -> /_blah
+    url.replace /\/\./g, '/_'                    # dot files and evil urls foiled /.blah  -> /_blah
 
 
   opt = opt or {}
@@ -66,9 +66,24 @@ imgcache = (opt) ->
               if debug
                 console.log 'Directory Creation Error: ' + error
               return callback(error)
-            request(url).pipe(fs.createWriteStream(self.info.path)).on 'close', ->
-              fs.readFile self.info.path, (err, file) ->
-                callback error, file, self.info
+            self.isimage url, (err, isimage, response) ->
+              if debug
+                console.log 'isimage response.code: ', response.statusCode
+              if err
+                return callback(err)
+              else if !isimage
+                if debug
+                  console.log 'NOT AN IMAGE'
+                return callback("Not an image")
+              else if response.statusCode != 200
+                if debug
+                  console.log 'Bad response: ' + response.statusCode
+                return callback "Bad response: " + response.statusCode
+              else
+                console.log(self.info)
+                request(url).pipe(fs.createWriteStream(self.info.path)).on 'close', ->
+                  fs.readFile self.info.path, (err, file) ->
+                    callback error, file, self.info
 
     iscached: (url) ->
       imagepath = cachedir + '/' + getrelativepath(url)
@@ -92,7 +107,7 @@ imgcache = (opt) ->
         else
           rx = new RegExp "image", "i"
           isimage = rx.test response.headers['content-type']
-          callback null, isimage
+          callback null, isimage, response
           return isimage
   }
 

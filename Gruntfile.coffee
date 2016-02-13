@@ -14,6 +14,7 @@ module.exports = (grunt) ->
     exec:
       debug:
         command: 'node-debug --debug-brk $(which grunt) nodeunit'
+
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-nodeunit'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
