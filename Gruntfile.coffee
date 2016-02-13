@@ -14,12 +14,15 @@ module.exports = (grunt) ->
     exec:
       debug:
         command: 'node-debug --debug-brk $(which grunt) nodeunit'
+      clean:
+        command: 'rm -rf test/testcache'
 
   grunt.loadNpmTasks 'grunt-contrib-coffee'
   grunt.loadNpmTasks 'grunt-contrib-nodeunit'
   grunt.loadNpmTasks 'grunt-contrib-jshint'
   grunt.loadNpmTasks 'grunt-exec'
-  grunt.registerTask 'default', ['coffee','nodeunit','jshint']
+  grunt.registerTask 'clean', ['exec:clean']
+  grunt.registerTask 'default', ['clean','coffee','nodeunit','jshint']
   grunt.registerTask 'build', ['coffee']
-  grunt.registerTask 'test', ['nodeunit','jshint']
-  grunt.registerTask 'debug', ['coffee','exec:debug']
+  grunt.registerTask 'test', ['clean','nodeunit','jshint']
+  grunt.registerTask 'debug', ['clean','coffee','exec:debug']

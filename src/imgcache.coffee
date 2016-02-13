@@ -14,7 +14,7 @@ imgcache = (opt) ->
     url = url.replace /^(ht|f)tps?:\/\//i, ''   # remove protocol
     url = url.replace /[^/]+\/\.\.\//g, ''      # parent directories, resolved, evil stuff caught below
     url = url.replace /[^a-z0-9_\.\/-]/gi, '_'  # everything not alphanumeric dot underscore dash
-    url.replace /\/\./g, '/_'                    # dot files and evil urls foiled /.blah  -> /_blah
+    url.replace /\/\./g, '/_'                   # dot files and evil urls foiled /.blah  -> /_blah
 
 
   opt = opt or {}
@@ -23,11 +23,6 @@ imgcache = (opt) ->
 
   # public API
   {
-    info:
-      'path': cachedir
-      'dirname': ''
-      'loadedfromcache': false
-
     clear: (url, callback) ->
       relativepath = getrelativepath url
       try
@@ -51,18 +46,23 @@ imgcache = (opt) ->
 
     get: (url, callback) ->
       self = this
-      @info.path = cachedir + '/' + getrelativepath url
-      @info.dirname = path.dirname(@info.path)
-      fs.readFile @info.path, (err, file) ->
+      info = 
+        'path': cachedir
+        'dirname': ''
+        'loadedfromcache': false
+      #url = decodeURI(url)
+      info.path = cachedir + '/' + getrelativepath url
+      info.dirname = path.dirname(info.path)
+      fs.readFile info.path, (err, file) ->
         if !err
-          self.info.loadedfromcache = true
-          callback err, file, self.info
+          info.loadedfromcache = true
+          callback err, file, info
         else
           if debug
-            console.log 'Downloading file: ' + self.info.path
-          mkdirp self.info.dirname, (error) ->
+            console.log 'Downloading file: ' + info.path
+          mkdirp info.dirname, (error) ->
             if error
-              self.info.error = error
+              info.error = error
               if debug
                 console.log 'Directory Creation Error: ' + error
               return callback(error)
@@ -80,10 +80,10 @@ imgcache = (opt) ->
                   console.log 'Bad response: ' + response.statusCode
                 return callback "Bad response: " + response.statusCode
               else
-                console.log(self.info)
-                request(url).pipe(fs.createWriteStream(self.info.path)).on 'close', ->
-                  fs.readFile self.info.path, (err, file) ->
-                    callback error, file, self.info
+                console.log(info)
+                request(url).pipe(fs.createWriteStream(info.path)).on 'close', ->
+                  fs.readFile info.path, (err, file) ->
+                    callback error, file, info
 
     iscached: (url) ->
       imagepath = cachedir + '/' + getrelativepath(url)
