@@ -109,8 +109,7 @@ Simple Web Image Resolving and Caching Utility NPM Module
 
 ## ToDo
 >
->  * check for evil urls... http://../../etc..
 >  * add options to listen to (or ignore) cache headers
 >  * add callback to iscached
 >  * add way to specify mimetypes we care about (currently: /image/i )
-
+>  * add promise support
