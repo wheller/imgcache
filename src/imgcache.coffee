@@ -83,7 +83,7 @@ imgcache = (opt) ->
                 console.log(info)
                 request(url).pipe(fs.createWriteStream(info.path)).on 'close', ->
                   fs.readFile info.path, (err, file) ->
-                    callback error, file, info
+                    callback err, file, info
 
     iscached: (url) ->
       imagepath = cachedir + '/' + getrelativepath(url)
