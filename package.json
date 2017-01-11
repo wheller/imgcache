@@ -1,6 +1,6 @@
 {
   "name": "imgcache",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Simple Image Resolving and Caching Tool",
   "main": "lib/imgcache.js",
   "directories": {
@@ -21,9 +21,9 @@
     "grunt-contrib-jshint": "^0.12.0",
     "grunt-contrib-nodeunit": "^1.0.0",
     "grunt-exec": "^0.4.6",
-    "nodeunit": "*",
+    "nodeunit": "^0.10.2",
     "pre-commit": "^1.1.2",
-    "should": "^8.2.1"
+    "should": "^11.1.2"
   },
   "scripts": {
     "test": "nodeunit test/*.coffee",
