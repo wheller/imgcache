@@ -1,5 +1,6 @@
 ImgCache
 ========
+[![npm version](https://badge.fury.io/js/imgcache.svg)](https://badge.fury.io/js/imgcache)
 [![Known Vulnerabilities](https://snyk.io/test/github/wheller/imgcache/badge.svg)](https://snyk.io/test/github/wheller/imgcache)
 
 Simple Web Image Resolving and Caching Utility NPM Module
