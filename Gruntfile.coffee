@@ -26,3 +26,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'build', ['coffee']
   grunt.registerTask 'test', ['clean','nodeunit','jshint']
   grunt.registerTask 'debug', ['clean','coffee','exec:debug']
+  grunt.registerTask 'lint', ['jshint']

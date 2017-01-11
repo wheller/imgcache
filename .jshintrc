@@ -19,10 +19,10 @@
   "regexdash"     : false,
   "strict"        : true,
   "scripturl"     : true,
-  "shadow"        : false,
+  "shadow"        : true,
   "supernew"      : false,
   "sub"           : true,
   "undef"         : true,
-  "unused"        : true,
+  "unused"        : false,
   "white"         : true
 }

@@ -1,3 +1,6 @@
+###
+jshint -W002
+###
 
 'use strict'
 
