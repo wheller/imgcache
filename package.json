@@ -10,7 +10,7 @@
     "node": ">= 0.8.0"
   },
   "dependencies": {
-    "mkdirp": "^0.5.1",
+    "mkdirp": "^1.0.0",
     "request": "^2.69.0"
   },
   "devDependencies": {
